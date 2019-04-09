@@ -1,0 +1,72 @@
+﻿<h3>Lista de Coordenadores</h3>
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Coordenador</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Perfil</th>
+            <th>Titulação</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<CoordenadorModel>)ViewBag.ListaCoordenadores)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.CPF</td>
+                    <td>@item.Perfil</td>
+                    <td>@item.Titulacao</td>
+                    <td>@item.Email</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Coordenador/Cadastro';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Coordenador/Cadastro/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Coordenador/Excluir/' + id;
+    }
+</script>
+
+<!-- Modal -->
+@*<div class="modal fade" id="excluirUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Excluir Usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Deseja realmente excluir o coordenador selecionado?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="Nao()">Não</button>
+                    <button type="button" class="btn btn-success" onclick="Sim()">Sim</button>
+                </div>
+            </div>
+          </div>
+    </div>*@

@@ -1,0 +1,27 @@
+﻿@model TurmaModel
+<h2>Cadastro de Turmas</h2>
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Turmas</button>
+<br />
+
+<form asp-controller="Geral" asp-action="CadastroTurma">
+    <input type="hidden" asp-for="Id" value="@try
+    {@ViewBag.Turma.Id} catch { } ">
+
+    <div class="form-group">
+        <label>Código</label>
+        <input asp-for="Codigo" type="text" class="form-control" value="@try
+            {@ViewBag.Turma.Codigo} catch { } " />
+        <span asp-validation-for="Codigo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-block btn-success">Salvar</button>
+</form>
+
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Geral/ListaTurma'
+    }
+
+</script>

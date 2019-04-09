@@ -1,0 +1,47 @@
+﻿<h3>Lista de Objetivos</h3>
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Objetivos</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<ObjetivoModel>)ViewBag.ListaObjetivos)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Descricao</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Geral/CadastroObjetivo';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Geral/CadastroObjetivo/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Geral/ExcluirObjt/' + id;
+    }
+
+
+</script>
+
+

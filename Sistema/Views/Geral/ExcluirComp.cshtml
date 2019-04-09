@@ -1,0 +1,18 @@
+﻿<h2>Excluir Competência</h2>
+
+<h3>Deseja realmente excluir a competência selecinada?</h3>
+
+<button type="button" class="btn btn-danger" onclick="Nao()">Não</button>
+<button type="button" class="btn btn-success" onclick="Sim()">Sim</button>
+
+<script>
+    function Sim() {
+        window.location.href = '../../Geral/ExcluirCompetencia/' + '@ViewData["IdExcluir"].ToString()';
+
+    }
+
+    function Nao() {
+        window.location.href = '../../Geral/ListaCompetencia';
+    }
+
+</script>

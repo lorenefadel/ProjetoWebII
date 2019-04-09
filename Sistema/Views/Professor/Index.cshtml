@@ -1,0 +1,54 @@
+﻿<h3>Lista de Professores</h3>
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Professor</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Perfil</th>
+            <th>Titulação</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<ProfessorModel>)ViewBag.ListaProfessores)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.CPF</td>
+                    <td>@item.Perfil</td>
+                    <td>@item.Titulacao</td>
+                    <td>@item.Email</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Professor/Cadastro';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Professor/Cadastro/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Professor/Excluir/' + id;
+    }
+
+
+</script>
+

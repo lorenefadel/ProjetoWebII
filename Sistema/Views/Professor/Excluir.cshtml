@@ -1,0 +1,18 @@
+﻿<h2>Excluir Usuário</h2>
+
+<h3>Deseja realmente excluir o professor selecinado?</h3>
+
+<button type="button" class="btn btn-danger" onclick="Nao()">Não</button>
+<button type="button" class="btn btn-success" onclick="Sim()">Sim</button>
+
+<script>
+    function Sim() {
+        window.location.href = '../../Professor/ExcluirProfessor/' + '@ViewData["IdExcluir"].ToString()';
+
+    }
+
+    function Nao() {
+        window.location.href = '../../Professor/Index';
+    }
+
+</script>

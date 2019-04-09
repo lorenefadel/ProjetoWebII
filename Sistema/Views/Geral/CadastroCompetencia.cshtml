@@ -1,0 +1,35 @@
+﻿@model CompetenciaModel
+<h2>Cadastro de Competências</h2>
+
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Competências</button>
+<br />
+
+<form asp-controller="Geral" asp-action="CadastroCompetencia">
+    <input type="hidden" asp-for="Id" value="@try
+    {@ViewBag.Competencia.Id} catch { } ">
+
+    <div class="form-group">
+        <label>Descrição</label>
+        <input asp-for="Descricao" type="text" class="form-control" value="@try
+            {@ViewBag.Competencia.Descricao} catch { } " />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <label>Disciplina</label>
+    <select class="form-control" asp-for="IdDisciplina"
+            asp-items="@ViewBag.ListaDisciplinas">
+        <option>.: Selecione</option>
+    </select>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success">Salvar</button>
+</form>
+
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Geral/ListaCompetencia'
+    }
+
+</script>

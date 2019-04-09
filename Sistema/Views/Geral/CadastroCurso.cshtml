@@ -1,0 +1,35 @@
+﻿@model CursoModel
+<h2>Cadastro de Cursos</h2>
+
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Cursos</button>
+<br />
+
+<form asp-controller="Geral" asp-action="CadastroCurso">
+    <input type="hidden" asp-for="Id" value="@try
+    {@ViewBag.Curso.Id} catch { } ">
+
+    <div class="form-group">
+        <label>Descrição</label>
+        <input asp-for="Descricao" type="text" class="form-control" value="@try
+            {@ViewBag.Curso.Descricao} catch { } " />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <label>Coordenador</label>
+    <select class="form-control" asp-for="IdCoordenador"
+            asp-items="@ViewBag.ListaCoordenadores">
+        <option>.: Selecione</option>
+    </select>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success">Salvar</button>
+</form>
+
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Geral/ListaCurso'
+    }
+
+</script>

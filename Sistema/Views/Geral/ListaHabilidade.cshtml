@@ -1,0 +1,47 @@
+﻿<h3>Lista de Habilidades</h3>
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Habilidades</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<HabilidadeModel>)ViewBag.ListaHabilidades)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Descricao</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Geral/CadastroHabilidade';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Geral/CadastroHabilidade/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Geral/ExcluirHabi/' + id;
+    }
+
+
+</script>
+
+

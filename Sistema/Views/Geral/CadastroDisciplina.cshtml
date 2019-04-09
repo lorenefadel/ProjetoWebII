@@ -1,0 +1,53 @@
+﻿@model DisciplinaModel
+<h2>Cadastro de Disciplinas</h2>
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Disciplinas</button>
+<br />
+
+<form asp-controller="Geral" asp-action="CadastroDisciplina">
+    <input type="hidden" asp-for="Id" value="@try
+    {@ViewBag.Disciplina.Id} catch { } ">
+
+    <div class="form-group">
+        <label>Descrição</label>
+        <input asp-for="Descricao" type="text" class="form-control" value="@try
+            {@ViewBag.Disciplina.Descricao} catch { } " />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Carga Horária</label>
+        <input asp-for="CargaHoraria" type="text" class="form-control" value="@try
+            {@ViewBag.Disciplina.CargaHoraria} catch { } " />
+        <span asp-validation-for="CargaHoraria" class="text-danger"></span>
+    </div>
+
+    <label>Curso</label>
+    <select class="form-control" asp-for="IdCurso"
+            asp-items="@ViewBag.ListaCursos">
+        <option>.: Selecione</option>
+    </select>
+
+    <br />
+    <label>Professor</label>
+    <select class="form-control" asp-for="IdProfessor"
+            asp-items="@ViewBag.ListaProfessores">
+        <option>.: Selecione</option>
+    </select>
+    <br />
+    <label>Turma</label>
+    <select class="form-control" asp-for="IdTurma"
+            asp-items="@ViewBag.ListaTurmas">
+        <option>.: Selecione</option>
+    </select>
+    <br />
+
+    <button type="submit" class="btn btn-block btn-success">Salvar</button>
+</form>
+
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Geral/ListaDisciplina'
+    }
+
+</script>

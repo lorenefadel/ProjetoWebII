@@ -1,0 +1,48 @@
+﻿<h3>Lista de Disciplinas</h3>
+
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Disciplina</button>
+<br />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th>Carga Horária</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<DisciplinaModel>)ViewBag.ListaDisciplinas)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Descricao</td>
+                    <td>@item.CargaHoraria</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Geral/CadastroDisciplina';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Geral/CadastroDisciplina/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Geral/ExcluirDisp/' + id;
+    }
+
+
+</script>

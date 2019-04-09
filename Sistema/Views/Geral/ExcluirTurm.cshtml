@@ -1,0 +1,18 @@
+﻿<h2>Excluir Habilidade</h2>
+
+<h3>Deseja realmente excluir a turma selecinada?</h3>
+
+<button type="button" class="btn btn-danger" onclick="Nao()">Não</button>
+<button type="button" class="btn btn-success" onclick="Sim()">Sim</button>
+
+<script>
+    function Sim() {
+        window.location.href = '../../Geral/ExcluirTurma/' + '@ViewData["IdExcluir"].ToString()';
+
+    }
+
+    function Nao() {
+        window.location.href = '../../Geral/ListaTurma';
+    }
+
+</script>

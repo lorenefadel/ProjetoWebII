@@ -1,0 +1,42 @@
+﻿@model HabilidadeModel
+<h2>Cadastro de Habilidades</h2>
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Habilidades</button>
+<br />
+<form asp-controller="Geral" asp-action="CadastroHabilidade">
+    <input type="hidden" asp-for="Id" value="@try
+    {@ViewBag.Habilidade.Id} catch { } ">
+
+    <div class="form-group">
+        <label>Descrição</label>
+        @{
+            var vDescricao = "";
+            try
+            {
+                vDescricao = ViewBag.Habilidade.Descricao;
+            }
+            catch { }
+        }
+
+        @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" })
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <label>Disciplina</label>
+    <select class="form-control" asp-for="IdDisciplina"
+            asp-items="@ViewBag.ListaDisciplinas">
+        <option>.: Selecione</option>
+    </select>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success">Salvar</button>
+</form>
+
+
+<script>
+    function Voltar() {
+        window.location.href = '../../Geral/ListaHabilidade'
+    }
+
+</script>
+

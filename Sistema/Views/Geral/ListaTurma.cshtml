@@ -1,0 +1,46 @@
+﻿<h3>Lista de Turmas</h3>
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Turmas</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Código</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<TurmaModel>)ViewBag.ListaTurmas)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Codigo</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.Id)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../Geral/CadastroTurma';
+    }
+
+    function Editar(id) {
+        window.location.href = '../Geral/CadastroTurma/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../Geral/ExcluirTurm/' + id;
+    }
+
+
+</script>
+
