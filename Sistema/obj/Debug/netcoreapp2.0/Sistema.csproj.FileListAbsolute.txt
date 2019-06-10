@@ -53,3 +53,14 @@ C:\Users\loren\Desktop\k\Sistema\Sistema\obj\Debug\netcoreapp2.0\Sistema.Assembl
 C:\Users\loren\Desktop\k\Sistema\Sistema\obj\Debug\netcoreapp2.0\Sistema.AssemblyInfo.cs
 C:\Users\loren\Desktop\k\Sistema\Sistema\obj\Debug\netcoreapp2.0\Sistema.dll
 C:\Users\loren\Desktop\k\Sistema\Sistema\obj\Debug\netcoreapp2.0\Sistema.pdb
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\bin\Debug\netcoreapp2.0\Sistema.deps.json
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\bin\Debug\netcoreapp2.0\Sistema.runtimeconfig.json
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\bin\Debug\netcoreapp2.0\Sistema.runtimeconfig.dev.json
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\bin\Debug\netcoreapp2.0\Sistema.dll
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\bin\Debug\netcoreapp2.0\Sistema.pdb
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.csprojAssemblyReference.cache
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.csproj.CoreCompileInputs.cache
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.AssemblyInfoInputs.cache
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.AssemblyInfo.cs
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.dll
+C:\Users\Alisson\Desktop\ProjetoWebII-master\Sistema\obj\Debug\netcoreapp2.0\Sistema.pdb

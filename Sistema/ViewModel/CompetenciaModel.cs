@@ -36,8 +36,10 @@ namespace Sistema.Models
                 item = new CompetenciaModel
                 {
                     Id = dt.ElementAt(i).IdCompetência.ToString(),
-                    Descricao = dt.ElementAt(i).Descricao.ToString()
+                    Descricao = dt.ElementAt(i).Descricao.ToString(),
+                    IdDisciplina = _context.CompetênciaHasDisciplina.FirstOrDefault(s => s.CompetênciaIdCompetência == dt.ElementAt(i).IdCompetência)?.DisciplinaIdDisciplina.ToString()
                 };
+
                 lista.Add(item);
             }
             return lista;

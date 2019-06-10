@@ -1,0 +1,331 @@
+﻿@model PlanoDeEnsinoModel
+
+<h2 class="hidden-print" style="color: black;">Cadastro de Planos de Ensino</h2>
+
+<style>
+    .form-group {
+        box-shadow: 0 0 5px lightgrey;
+    }
+
+    table, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 10px;
+        margin: 0;
+    }
+
+    h1, h2, h3 {
+        color: darkblue;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+
+    [type='datetime-local'] {
+        border: 1px solid lightgrey;
+        padding: 10px;
+        border-radius: 15px;
+    }
+</style>
+
+<script id="tmplText" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-11">
+            <input id="{{Index}}_{{Name}}" name="{{Name}}" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-1 hidden-print">
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<script id="tmplObjetivos" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-11">
+            @{<select id="{{Index}}_{{Name}}" class="form-control" name="{{Name}}" asp-items="@ViewBag.ListaObjetivos"></select>}
+        </div>
+        <div class="col-xs-1">
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<script id="tmplCompetencias" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-11">
+            @{<select id="{{Index}}_{{Name}}" class="form-control" name="{{Name}}" asp-items="@ViewBag.ListaCompetencias"></select>}
+        </div>
+        <div class="col-xs-1">
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<script id="tmplHabilidades" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-11">
+            @{<select id="{{Index}}_{{Name}}" class="form-control" name="{{Name}}" asp-items="@ViewBag.ListaHabilidades"></select>}
+        </div>
+        <div class="col-xs-1">
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<button type="button" class="btn btn-block btn-warning hidden-print" onclick="Voltar()">Selecionar Disciplina e Responsável</button>
+<br class="hidden-print"/>
+<form asp-controller="PlanoDeEnsino" asp-action="Cadastro">
+    @Html.HiddenFor(s => s.IdCoordenador)
+    @Html.HiddenFor(s => s.IdCurso)
+    @Html.HiddenFor(s => s.IdDisciplina)
+    @Html.HiddenFor(s => s.IdPlanoDeEnsino)
+    @Html.HiddenFor(s => s.IdProfessor)
+    @Html.HiddenFor(s => s.CargaHorariaTeorica)
+    @Html.HiddenFor(s => s.CargaHorariaPratica)
+
+    <div class="form-group">
+        <br class="hidden-print"/>
+        <div class="row">
+            <button type="button" class="btn btn-info hidden-print" onclick="window.print()">Gerar PDF</button>
+        </div>
+
+
+        <div style="text-align: center; width: 100%;">
+            <h2>Plano de Ensino</h2>
+        </div>
+
+        <div style="text-align: center; width: 100%;">
+            <h1>@Model.nomeCurso</h1>
+        </div>
+
+        <br >
+
+        <!-- Tabela -->
+        <table cellspacing="0" style="width:80%; margin-left: 10%;">
+            <tr>
+                <td>Disciplina: @Model.nomeDisciplina</td>
+                <td colspan="3" style="text-align: center;">Carga Horária</td>
+            </tr>
+            <tr>
+                <td>Professor Responsável: @Model.nomeProfessor</td>
+                <td style="text-align: center;">Teoria</td>
+                <td style="text-align: center;">Prática</td>
+                <td style="text-align: center;">Total</td>
+            </tr>
+            <tr>
+                <td>Coordenador: @Model.nomeCoordenador</td>
+                <td style="text-align: center;">@Model.CargaHorariaTeorica</td>
+                <td style="text-align: center;">@Model.CargaHorariaPratica</td>
+                <td style="text-align: center;">@Model.CargaHorariaTotal</td>
+            </tr>
+            <tr>
+                <td>Atualização: @Html.EditorFor(s => s.DateAtualizacao)</td>
+                <td colspan="3">Validação:  @Html.EditorFor(s => s.DateValidacaoNde)</td>
+            </tr>
+        </table>
+
+        <div style="text-align: left; width: 80%; margin-left: 10%;">
+            <br class="hidden-print">
+            
+            <section>
+                <h3>Ementa</h3>
+                <textarea asp-for="Ementa" rows="5" class="form-control" value="@Model.Ementa"></textarea>
+                <span asp-validation-for="Ementa" class="text-danger"></span>
+            </section>
+            
+            <br>
+            
+            <section>
+                <h3>Objetivos</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addObjetivo()">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="ListaObjetivos"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Competências</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addCompetencia()">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="ListaCompetencias"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Habilidades</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addHabilidade()">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="ListaHabilidades"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Conteúdo Programático</h3>
+                <br class="hidden-print"/>
+                <h4 style="margin-left: 5%;">Módulo 1</h4>
+                <div style="margin-left: 5%;">
+                    <textarea asp-for="ConteudoProgramaticoM1" rows="5" class="form-control" value="@Model.ConteudoProgramaticoM1"></textarea>
+                    <span asp-validation-for="ConteudoProgramaticoM1" class="text-danger"></span>
+                </div>
+
+                <h4 style="margin-left: 5%;">Módulo 2</h4>
+                <div style="margin-left: 5%;">
+                    <textarea asp-for="ConteudoProgramaticoM2" rows="5" class="form-control" value="@Model.ConteudoProgramaticoM2"></textarea>
+                    <span asp-validation-for="ConteudoProgramaticoM2" class="text-danger"></span>
+                </div>
+            </section>
+                
+            <br>
+            <section>
+                <h3>Metodologia de ensino</h3>
+                <textarea asp-for="MetodologiaDeEnsino" rows="5" class="form-control" value="@Model.MetodologiaDeEnsino"></textarea>
+                <span asp-validation-for="MetodologiaDeEnsino" class="text-danger"></span>
+            </section>
+                
+            <br>
+
+            <section>
+                <h3>Avaliação</h3>
+                <textarea asp-for="Avaliacao" rows="5" class="form-control" value="@Model.Avaliacao"></textarea>
+                <span asp-validation-for="Avaliacao" class="text-danger"></span>
+            </section>
+
+            <br>
+
+            <section>
+                <h3>Bibliografia Básica</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addItem('BibliografiaBasica', 'basica')">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="BibliografiaBasica"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Bibliografia Complementar</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addItem('BibliografiaComplementar', 'complementar')">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="BibliografiaComplementar"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Membros do NDE</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addItem('MembrosNDE', 'nde')">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="MembrosNDE"></div>
+            </section>
+        </div>
+        <br />
+        <br />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success hidden-print">Salvar</button>
+</form>
+
+<script>
+    function Voltar() {
+        window.location.href = '../../PlanoDeEnsino/Cadastro'
+    }
+
+    function setTemplate(tmplName, target, name) {
+        var tmpl = $("#" + tmplName).html();
+
+        tmpl = tmpl.replace(/{{Name}}/g, name);
+        tmpl = tmpl.replace(/{{Index}}/g, $("#" + target).children().length);
+
+        $("#" + target).append(tmpl);
+    }
+
+    function addItem(target, name) {
+        setTemplate("tmplText", target, name);
+    }
+
+    function addObjetivo() {
+        setTemplate("tmplObjetivos", "ListaObjetivos", "objetivos");
+    }
+
+    function addCompetencia() {
+        setTemplate("tmplCompetencias", "ListaCompetencias", "competencias");
+    }
+
+    function addHabilidade() {
+        setTemplate("tmplHabilidades", "ListaHabilidades", "habilidades");
+    }
+
+    function RemoveItem(event) {
+        $($(event.target).parents()[1]).remove()
+    }
+</script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            @foreach (var item in Model.MembroNde)
+            {
+                <text>
+                    addItem('MembrosNDE', 'nde');
+                    var currentIndex = $("#MembrosNDE").children().length - 1;
+                    $("#" + currentIndex + "_nde").val('@item.Nome');
+                </text>
+            }
+
+            @foreach (var item in Model.Livro.Where(s => s.BibliografiaBasica))
+            {
+                <text>
+                    addItem('BibliografiaBasica', 'basica');
+                    var currentIndex = $("#BibliografiaBasica").children().length - 1;
+                    $("#" + currentIndex + "_basica").val('@item.NomeLivro');
+                </text>
+            }
+
+
+            @foreach (var item in Model.Livro.Where(s => !s.BibliografiaBasica))
+            {
+                <text>
+                    addItem('BibliografiaComplementar', 'complementar')
+                    var currentIndex = $("#BibliografiaComplementar").children().length - 1;
+                    $("#" + currentIndex + "_complementar").val('@item.NomeLivro');
+                </text>
+            }
+
+            @foreach (var item in Model.ObjetivoPlanoDeEnsino)
+            {
+                <text>
+                    addObjetivo();
+                    var currentIndex = $("#ListaObjetivos").children().length - 1;
+
+                    $('#'+ currentIndex +'_objetivos option[value='+ '@item.IdObjetivo' +']').attr('selected','selected');
+                </text>
+            }
+
+            @foreach (var item in Model.HabilidadePlanoDeEnsino)
+            {
+                <text>
+                    addHabilidade();
+                    var currentIndex = $("#ListaHabilidades").children().length - 1;
+
+                    $('#'+ currentIndex +'_habilidades option[value='+ '@item.IdHabilidade' +']').attr('selected','selected');
+                </text>
+            }
+
+            @foreach (var item in Model.CompetenciaPlanoDeEnsino)
+            {
+                <text>
+                    addCompetencia();
+                    var currentIndex = $("#ListaCompetencias").children().length - 1;
+
+                    $('#'+ currentIndex +'_competencias option[value='+ '@item.IdCompetencia' +']').attr('selected','selected');
+                </text>
+            }
+        })
+    </script>
+}

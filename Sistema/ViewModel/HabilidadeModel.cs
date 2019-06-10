@@ -35,7 +35,8 @@ namespace Sistema.Models
                 item = new HabilidadeModel
                 {
                     Id = dt.ElementAt(i).IdHabilidade.ToString(),
-                    Descricao = dt.ElementAt(i).Descricao.ToString()
+                    Descricao = dt.ElementAt(i).Descricao.ToString(),
+                    IdDisciplina = _context.HabilidadeHasDisciplina.FirstOrDefault(s => s.HabilidadeIdHabilidade == dt.ElementAt(i).IdHabilidade)?.DisciplinaIdDisciplina.ToString()
                 };
                 lista.Add(item);
             }

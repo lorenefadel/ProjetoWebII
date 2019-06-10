@@ -1,0 +1,28 @@
+﻿<h2 style="color: black;">Cadastro de Planos de Aula</h2>
+
+<button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Lista de Planos de Aula</button>
+<br />
+<form asp-controller="PlanoDeAula" asp-action="DetalhesCadastro">
+    <div class="form-group">
+        <br />
+        <p>Disciplina</p>
+        <select class="form-control" name="IdDisciplina" asp-items="@ViewBag.ListaDisciplinas"></select>
+        <br />
+
+        <p>Semestre</p>
+        <input type="number" name="Semestre"/>
+        <br />
+        
+        <p>Ano</p>
+        <input type="number" name="Ano"/>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success">Continuar</button>
+</form>
+
+<script>
+    function Voltar() {
+        window.location.href = '../../PlanoDeAula/Index'
+    }
+</script>

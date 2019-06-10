@@ -12,6 +12,8 @@ namespace Sistema.Models
             DisciplinaHasProfessor = new HashSet<DisciplinaHasProfessor>();
             HabilidadeHasDisciplina = new HashSet<HabilidadeHasDisciplina>();
             ObjetivoHasDisciplina = new HashSet<ObjetivoHasDisciplina>();
+            PlanoDeAula = new HashSet<PlanoDeAula>();
+            PlanoDeEnsino = new HashSet<PlanoDeEnsino>();
         }
 
         public int IdDisciplina { get; set; }
@@ -23,5 +25,7 @@ namespace Sistema.Models
         public ICollection<DisciplinaHasProfessor> DisciplinaHasProfessor { get; set; }
         public ICollection<HabilidadeHasDisciplina> HabilidadeHasDisciplina { get; set; }
         public ICollection<ObjetivoHasDisciplina> ObjetivoHasDisciplina { get; set; }
+        public ICollection<PlanoDeAula> PlanoDeAula { get; set; }
+        public ICollection<PlanoDeEnsino> PlanoDeEnsino { get; set; }
     }
 }

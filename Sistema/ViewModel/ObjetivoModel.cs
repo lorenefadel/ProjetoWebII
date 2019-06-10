@@ -36,8 +36,10 @@ namespace Sistema.Models
                 item = new ObjetivoModel
                 {
                     Id = dt.ElementAt(i).IdObjetivo.ToString(),
-                    Descricao = dt.ElementAt(i).Descricao.ToString()
+                    Descricao = dt.ElementAt(i).Descricao.ToString(),
+                    IdDisciplina = _context.ObjetivoHasDisciplina.FirstOrDefault(s => s.ObjetivoIdObjetivo == dt.ElementAt(i).IdObjetivo)?.DisciplinaIdDisciplina.ToString()
                 };
+
                 lista.Add(item);
             }
             return lista;

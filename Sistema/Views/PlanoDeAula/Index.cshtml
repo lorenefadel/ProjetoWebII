@@ -1,0 +1,47 @@
+﻿<h3>Lista de Planos de Aula</h3>
+
+<button class="btn btn-block btn-primary" type="button" onclick="Cadastrar()">Cadastrar Plano de Aula</button>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Disciplina</th>
+            <th>Semestre</th>
+            <th>Ano</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in (List<PlanoDeAulaModel>)ViewBag.ListaPlanosDeAula)
+            {
+                <tr>
+                    <td>@item.IdPlanoDeAula</td>
+                    <td>@item.nomeDisciplina</td>
+                    <td>@item.Semestre</td>
+                    <td>@item.Ano</td>
+                    <td><button type="button" class="btn btn-warning" onclick="Editar(@item.IdPlanoDeAula)">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.IdPlanoDeAula)">Excluir</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<br />
+
+<script>
+    function Cadastrar() {
+        window.location.href = '../PlanoDeAula/Cadastro';
+    }
+
+    function Editar(id) {
+        window.location.href = '../PlanoDeAula/Cadastro/' + id;
+    }
+
+    function Excluir(id) {
+        window.location.href = '../PlanoDeAula/Excluir/' + id;
+    }
+</script>

@@ -1,0 +1,272 @@
+﻿@model PlanoDeAulaModel
+
+<h2 class="hidden-print" style="color: black;">Cadastro de Planos de Aula</h2>
+
+<style>
+    .form-group {
+        box-shadow: 0 0 5px lightgrey;
+    }
+
+    table, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 10px;
+        margin: 0;
+    }
+
+    h1, h2, h3 {
+        color: darkblue;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+
+    [type='datetime-local'] {
+        border: 1px solid lightgrey;
+        padding: 10px;
+        border-radius: 15px;
+    }
+</style>
+
+<script id="tmplText" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-11">
+            <input id="{{Index}}_{{Name}}" name="{{Name}}" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-1 hidden-print">
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<script id="tmplConteudo" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 5px; padding: 20px 0; border-bottom: 2px dashed grey; ">
+        <div class="col-xs-2">
+            Semana: 
+            <input id="{{Index}}_{{Name}}_Semana" name="{{Name}}[{{Index}}].Semana" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-6">
+            Data: 
+            <input id="{{Index}}_{{Name}}_DataConteudo" name="{{Name}}[{{Index}}].DataConteudo" type="date" class="form-control" />
+        </div>
+        <div class="col-xs-4">
+            Bibliografia: 
+            <input id="{{Index}}_{{Name}}_Bibliografia" name="{{Name}}[{{Index}}].Bibliografia" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-10">
+            Conteúdo: 
+            <input id="{{Index}}_{{Name}}_Descricao" name="{{Name}}[{{Index}}].Descricao" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-2">
+            <br />
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<script id="tmplNotas" type="text/template">
+    <div class="row col-xs-12" style="margin-bottom: 10px;">
+        <div class="col-xs-2">
+            Atividade: 
+            <input id="{{Index}}_{{Name}}_Atividade" name="{{Name}}[{{Index}}].Atividade" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-7">
+            Descricao: 
+            <input id="{{Index}}_{{Name}}_Descricao" name="{{Name}}[{{Index}}].Descricao" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-2">
+            Peso: 
+            <input id="{{Index}}_{{Name}}_Peso" name="{{Name}}[{{Index}}].Peso" type="text" class="form-control" />
+        </div>
+        <div class="col-xs-1">
+            <br />
+            <button type="button" class="btn btn-danger hidden-print" onclick="RemoveItem(event)">Remover</button>
+        </div>
+    </div>
+</script>
+
+<button type="button" class="btn btn-block btn-warning hidden-print" onclick="Voltar()">Selecionar Disciplina</button>
+<br class="hidden-print"/>
+<form asp-controller="PlanoDeAula" asp-action="Cadastro">
+    @Html.HiddenFor(s => s.IdCoordenador)
+    @Html.HiddenFor(s => s.IdCurso)
+    @Html.HiddenFor(s => s.IdDisciplina)
+    @Html.HiddenFor(s => s.IdPlanoDeAula)
+    @Html.HiddenFor(s => s.IdTurma)
+    @Html.HiddenFor(s => s.IdProfessor)
+    @Html.HiddenFor(s => s.CargaHorariaTeorica)
+    @Html.HiddenFor(s => s.CargaHorariaPratica)
+    @Html.HiddenFor(s => s.Semestre)
+    @Html.HiddenFor(s => s.Ano)
+
+    <div class="form-group">
+        <br class="hidden-print"/>
+        <div class="row">
+            <button type="button" class="btn btn-info hidden-print" onclick="window.print()">Gerar PDF</button>
+        </div>
+
+
+        <div style="text-align: center; width: 100%;">
+            <h2>Plano de Aulas</h2>
+        </div>
+
+        <div style="text-align: center; width: 100%;">
+            <h1>@Model.nomeCurso - @(Model.Semestre)/@(Model.Ano)</h1>
+        </div>
+
+        <br >
+
+        <!-- Tabela -->
+        <table cellspacing="0" style="width:80%; margin-left: 10%;">
+            <tr>
+                <td>Disciplina: @Model.nomeDisciplina</td>
+                <td colspan="3" style="text-align: center;">Carga Horária</td>
+            </tr>
+            <tr>
+                <td>Professor: @Model.nomeProfessor</td>
+                <td style="text-align: center;">Teoria</td>
+                <td style="text-align: center;">Prática</td>
+                <td style="text-align: center;">Total</td>
+            </tr>
+            <tr>
+                <td>Email: @Model.emailProfessor</td>
+                <td style="text-align: center;">@Model.CargaHorariaTeorica</td>
+                <td style="text-align: center;">@Model.CargaHorariaPratica</td>
+                <td style="text-align: center;">@Model.CargaHorariaTotal</td>
+            </tr>
+            <tr>
+                <td>Turma: @Model.nomeTurma</td>
+                <td colspan="4">Coordenador:  @Model.nomeCoordenador</td>
+            </tr>
+        </table>
+
+        <div style="text-align: left; width: 80%; margin-left: 10%;">
+            <br class="hidden-print">
+            
+            <section>
+                <h3>Conteúdo</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addConteudo()">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="ConteudoParent"></div>
+            </section>
+
+            <br>
+
+            <section>
+                <h3>Bibliografia Básica</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addItem('BibliografiaBasica', 'basica')">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="BibliografiaBasica"></div>
+            </section>
+
+            <br>
+            <section>
+                <h3>Bibliografia Complementar</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addItem('BibliografiaComplementar', 'complementar')">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="BibliografiaComplementar"></div>
+            </section>
+
+            <br>
+
+            <section>
+                <h3>Composição das Notas</h3>
+                <button class="btn btn-success hidden-print" type="button" onclick="addNota()">Adicionar</button>
+                <br class="hidden-print">
+                <br class="hidden-print">
+                <div class="row" id="NotasParent"></div>
+            </section>
+
+        </div>
+        <br />
+        <br />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-block btn-success hidden-print">Salvar</button>
+</form>
+
+<script>
+    function Voltar() {
+        window.location.href = '../../PlanoDeAula/Cadastro'
+    }
+
+    function setTemplate(tmplName, target, name) {
+        var tmpl = $("#" + tmplName).html();
+
+        tmpl = tmpl.replace(/{{Name}}/g, name);
+        tmpl = tmpl.replace(/{{Index}}/g, $("#" + target).children().length);
+
+        $("#" + target).append(tmpl);
+    }
+
+    function addItem(target, name) {
+        setTemplate("tmplText", target, name);
+    }
+
+    function addNota() {
+        setTemplate("tmplNotas", "NotasParent", "notas");
+    }
+
+    function addConteudo() {
+        setTemplate("tmplConteudo", "ConteudoParent", "conteudo");
+    }
+    function RemoveItem(event) {
+        $($(event.target).parents()[1]).remove()
+    }
+</script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            @foreach (var item in Model.Livro.Where(s => s.BibliografiaBasica))
+            {
+                <text>
+                    addItem('BibliografiaBasica', 'basica');
+                    var currentIndex = $("#BibliografiaBasica").children().length - 1;
+                    $("#" + currentIndex + "_basica").val('@item.NomeLivro');
+                </text>
+            }
+
+
+            @foreach (var item in Model.Livro.Where(s => !s.BibliografiaBasica))
+            {
+                <text>
+                    addItem('BibliografiaComplementar', 'complementar')
+                    var currentIndex = $("#BibliografiaComplementar").children().length - 1;
+                    $("#" + currentIndex + "_complementar").val('@item.NomeLivro');
+                </text>
+            }
+
+            @foreach (var item in Model.Conteudo)
+            {
+                <text>
+                    addConteudo();
+                    var currentIndex = $("#ConteudoParent").children().length - 1;
+                    $("#" + currentIndex + "_conteudo_Semana").val('@Html.Raw(item.Semana)');
+                    $("#" + currentIndex + "_conteudo_Descricao").val('@Html.Raw(item.Descricao)');
+                    $("#" + currentIndex + "_conteudo_DataConteudo").val('@Html.Raw(item.DataConteudo.Value.ToString("yyyy-MM-dd"))');
+                    $("#" + currentIndex + "_conteudo_Bibliografia").val('@Html.Raw(item.Bibliografia)');
+                </text>
+            }
+
+            @foreach (var item in Model.Notas)
+            {
+                <text>
+                    addNota();
+                    var currentIndex = $("#NotasParent").children().length - 1;
+                    $("#" + currentIndex + "_notas_Atividade").val('@Html.Raw(item.Atividade)');
+                    $("#" + currentIndex + "_notas_Descricao").val('@Html.Raw(item.Descricao)');
+                    $("#" + currentIndex + "_notas_Peso").val('@Html.Raw(item.Peso)');
+                </text>
+            }
+
+
+        });
+    </script>
+}

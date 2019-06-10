@@ -8,6 +8,8 @@ namespace Sistema.Models
         public Professor()
         {
             DisciplinaHasProfessor = new HashSet<DisciplinaHasProfessor>();
+            PlanoDeAula = new HashSet<PlanoDeAula>();
+            PlanoDeEnsino = new HashSet<PlanoDeEnsino>();
         }
 
         public int IdProfessor { get; set; }
@@ -19,5 +21,7 @@ namespace Sistema.Models
         public string Titulacao { get; set; }
 
         public ICollection<DisciplinaHasProfessor> DisciplinaHasProfessor { get; set; }
+        public ICollection<PlanoDeAula> PlanoDeAula { get; set; }
+        public ICollection<PlanoDeEnsino> PlanoDeEnsino { get; set; }
     }
 }

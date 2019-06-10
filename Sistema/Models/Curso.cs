@@ -8,6 +8,8 @@ namespace Sistema.Models
         public Curso()
         {
             DisciplinaHasCurso = new HashSet<DisciplinaHasCurso>();
+            PlanoDeAula = new HashSet<PlanoDeAula>();
+            PlanoDeEnsino = new HashSet<PlanoDeEnsino>();
         }
 
         public int IdCurso { get; set; }
@@ -16,5 +18,7 @@ namespace Sistema.Models
 
         public Coordenador CoordenadorIdCoordenadorNavigation { get; set; }
         public ICollection<DisciplinaHasCurso> DisciplinaHasCurso { get; set; }
+        public ICollection<PlanoDeAula> PlanoDeAula { get; set; }
+        public ICollection<PlanoDeEnsino> PlanoDeEnsino { get; set; }
     }
 }
